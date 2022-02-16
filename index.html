@@ -1,52 +1,54 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <link rel='stylesheet' href='library.css'/>
+    <link rel='stylesheet' href='styles.css'/>
     <meta charset="utf-8">
     <title>Insulin Calculator</title>
   </head>
 
   <body>
-    <h1>Insulin Calculator Beta</h1>
-    <p>Calculate number of vials from dosing instructions. Work in progress. Use at your own risk, Kiro!</p>
+    <div class="main">
+      <h1>Insulin Calculator Beta</h1>
+      <p>Calculate number of vials from dosing instructions. Work in progress. Use at your own risk, Kiro!</p>
 
-    
-    <div class='form-row'>
-      <label for='quantity'>Quantity</label>
-      <input id='quantity' name='quantity' type='text' value="3"/>
-    </div>
+      <div class='form-row'>
+        <label for='quantity' class="calc-label">Quantity</label>
+        <input id='quantity' name='quantity' type='text' value=""/>
+      </div>
 
-    <div class='form-row'>
-      Measurement: 
-      <input type="radio" name ="Measurement" id="Units" value="isUnits" checked="true">
-      <label for='read'>Units</label>
-    
-      <input type="radio" name ="Measurement" id="Mgs" value="isMgs">
-      <label for='read'>Mgs</label>
-    </div>
+      <div class='form-row'>
+        <span class="calc-label">Measurement: </span>
+        <input type="radio" name ="Measurement" id="Units" value="isUnits" checked="true">
+        <label for='read'>Units</label>
+      
+        <input type="radio" name ="Measurement" id="Mgs" value="isMgs">
+        <label for='read'>Mgs</label>
+      </div>
 
-    <div class='form-row'>
-      Interval: 
-      <input type="radio" name ="interval" id="Daily" value="isdaily" checked="true">
-      <label for='Daily'>Daily</label>
-      <input type="radio" name ="interval" id="Weekly" value="isweekly">
-      <label for='Weekly'>Weekly</label>
-    </div>
+      <div class='form-row'>
+        <span class="calc-label">Interval: </span>
+        <input type="radio" name ="interval" id="Daily" value="isdaily" checked="true">
+        <label for='Daily'>Daily</label>
+        <input type="radio" name ="interval" id="Weekly" value="isweekly">
+        <label for='Weekly'>Weekly</label>
+      </div>
 
-    <div class='form-row'>
-      <label for='days'>Days Supply</label>
-      <input id='days' name='days' type='text' value="90"/>
-    </div>
+      <div class='form-row'>
+        <label for='days' class="calc-label">Days Supply</label>
+        <input id='days' name='days' type='text' value="90"/>
+      </div>
 
-<p></p>
+      <h2>Insulins</h2>
 
-<h2>Insulins</h2>
+      <p id=buttons></p>
 
-<p id=buttons></p>
+      <h2>Calculation</h2>
 
-<h2>Calculation</h2>
+      <p id="result" class="result"></p>
 
-<p id="result" class="result"></p>
+      <p id="notes" class="notes"></p>
+
+</div>
 
     <script>
 
@@ -69,17 +71,23 @@ class Insulin {
           let days = document.getElementById('days').value;
 
           let result = document.getElementById('result');
-
           let total = ((quantity * days * interval) / this.quantity)
-
           result.textContent = Math.ceil(total) + " " + this.name + " " + this.form + "s"
+
+          let notes = document.getElementById('notes');
+          if (this.note) {
+            notes.textContent = "Note: " + this.note;
+          } else {
+            notes.textContent = ""
+          }
         }
 
         addToDom = () => {
           const btn = document.createElement('input');
             btn.setAttribute('value', this.name);
+            btn.setAttribute('id', this.name);
             btn.setAttribute('type', 'button');
-            btn.setAttribute('class', 'btn-delete');
+            btn.setAttribute('class', 'btn');
             btn.setAttribute('onclick', this.varname + ".calculate()");
             document.getElementById('buttons').appendChild(btn)
         }
@@ -87,10 +95,16 @@ class Insulin {
       }
 
       const humalog = new Insulin("Humalog Vial", "humalog", 350, "mg", "vial")
+      const humalogpen = new Insulin("Humalog Kwikpen", "humalogpen", 300, "mg", "vial", "pls test")
       const trulicity = new Insulin("Trulicity 1.5/0.5", "trulicity", 1.5, "mg", "pen")
       const tresiba300 = new Insulin("Tresiba 300IU", "tresiba300", 300, "ml", "pen")
+      const toujeo = new Insulin("Toujeo Solostar", "toujeo", 450, "ml", "pen", "Not the MAX version")
+      const toujeomax = new Insulin("Toujeo Max Solostar", "toujeomax", 900, "ml", "pen")
       const novolog = new Insulin("Novolog Flexpen", "novolog", 300, "ml", "pen")
+      const novologfill = new Insulin("Novolog Penfill", "novologfill", 300, "ml", "pen", "Note sure about this one")
+      const novologvial = new Insulin("Novolog 10ml Vial", "novologvial", 1000, "ml", "pen", "This one needs testing")
       const levemir = new Insulin("Levemir Flextouch", "levemir", 300, "ml", "pen")
+      const lantus = new Insulin("Lantus Solostar", "lantus", 300, "ml", "pen")
 
     </script>
 
