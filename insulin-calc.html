@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel='stylesheet' href='library.css'/>
+    <meta charset="utf-8">
+    <title>Insulin Calculator</title>
+  </head>
+
+  <body>
+    <h1>Insulin Calculator</h1>
+    <p>Calculate number of vials from dosing instructions</p>
+
+    <div class='form-row'>
+      <label for='quantity'>Quantity</label>
+      <input id='quantity' name='quantity' type='text' value="3"/>
+    </div>
+
+    <div class='form-row'>
+      Measurement: 
+      <input type="radio" name ="Measurement" id="Units" value="isUnits" checked="true">
+      <label for='read'>Units</label>
+    
+      <input type="radio" name ="Measurement" id="Mgs" value="isMgs">
+      <label for='read'>Mgs</label>
+    </div>
+
+    <div class='form-row'>
+      Interval: 
+      <input type="radio" name ="interval" id="Daily" value="isdaily" checked="true">
+      <label for='Daily'>Daily</label>
+      <input type="radio" name ="interval" id="Weekly" value="isweekly">
+      <label for='Weekly'>Weekly</label>
+    </div>
+
+    <div class='form-row'>
+      <label for='days'>Days Supply</label>
+      <input id='days' name='days' type='text' value="90"/>
+    </div>
+
+<p></p>
+
+<h2>Insulins</h2>
+
+<p id=buttons></p>
+
+<h2>Calculation</h2>
+
+<p id="result" class="result"></p>
+
+    <script>
+
+class Insulin {
+        constructor(name, varname, quantity, unit, form, note) {
+          this.name = name;
+          this.varname = varname;
+          this.quantity = quantity; //per unit
+          this.unit = unit;
+          this.form = form;
+          this.note = note; //add additional notes like needle tips or pack sizes
+
+          this.addToDom()
+        }
+
+        //add button to dom on creation?
+        calculate = () => {
+          let quantity = document.getElementById('quantity').value;
+          let interval = document.getElementById('Daily').checked ? 1 : (1/7) 
+          let days = document.getElementById('days').value;
+
+          let result = document.getElementById('result');
+
+          let total = ((quantity * days * interval) / this.quantity)
+
+          result.textContent = Math.ceil(total) + " " + this.name + " " + this.form + "s"
+        }
+
+        addToDom = () => {
+          const btn = document.createElement('input');
+            btn.setAttribute('value', this.name);
+            btn.setAttribute('type', 'button');
+            btn.setAttribute('class', 'btn-delete');
+            btn.setAttribute('onclick', this.varname + ".calculate()");
+            document.getElementById('buttons').appendChild(btn)
+        }
+
+      }
+
+      const humalog = new Insulin("Humalog Vial", "humalog", 350, "mg", "vial")
+      const trulicity = new Insulin("Trulicity 1.5/0.5", "trulicity", 1.5, "mg", "pen")
+      const tresiba300 = new Insulin("Tresiba 300IU", "tresiba300", 300, "ml", "pen")
+      const novolog = new Insulin("Novolog Flexpen", "novolog", 300, "ml", "pen")
+      const levemir = new Insulin("Levemir Flextouch", "levemir", 300, "ml", "pen")
+
+    </script>
+
+  </body>
+</html>
