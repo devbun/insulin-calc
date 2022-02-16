@@ -8,45 +8,53 @@
 
   <body>
     <div class="main">
-      <h1>Insulin Calculator Beta</h1>
-      <p>Calculate number of vials from dosing instructions. Work in progress. Use at your own risk, Kiro!</p>
+      <h1>Insulin Calculator</h1>
+      <p>Calculate insulin quantity from dosing instructions.</p>
 
-      <div class='form-row'>
-        <label for='quantity' class="calc-label">Quantity</label>
-        <input id='quantity' name='quantity' type='text' value=""/>
-      </div>
+      <div class="form">
 
-      <div class='form-row'>
-        <span class="calc-label">Measurement: </span>
-        <input type="radio" name ="Measurement" id="Units" value="isUnits" checked="true">
-        <label for='read'>Units</label>
-      
-        <input type="radio" name ="Measurement" id="Mgs" value="isMgs">
-        <label for='read'>Mgs</label>
-      </div>
+        <div class='form-row'>
+          <label for='quantity' class="calc-label">Quantity:</label>
+          <input id='quantity' name='quantity' type='text' class="form-right" value=""/>
+        </div>
 
-      <div class='form-row'>
-        <span class="calc-label">Interval: </span>
-        <input type="radio" name ="interval" id="Daily" value="isdaily" checked="true">
-        <label for='Daily'>Daily</label>
-        <input type="radio" name ="interval" id="Weekly" value="isweekly">
-        <label for='Weekly'>Weekly</label>
-      </div>
+        <!-- <div class='form-row'>
+          <span class="calc-label">Measurement: </span>
+          <div class="form-right">
+            <input type="radio" name ="Measurement" id="Units" value="isUnits" checked="true">
+            <label for='read'>Units</label>
 
-      <div class='form-row'>
-        <label for='days' class="calc-label">Days Supply</label>
-        <input id='days' name='days' type='text' value="90"/>
+            <input type="radio" name ="Measurement" id="Mgs" value="isMgs">
+            <label for='read'>Mgs</label>
+          </div>
+        </div> -->
+
+        <div class='form-row'>
+          <span class="calc-label">Interval: </span>
+          <div class="form-right">
+            <input type="radio" name ="interval" id="Daily" value="isdaily" checked="true">
+            <label for='Daily'>Daily</label>
+
+            <input type="radio" name ="interval" id="Weekly" value="isweekly">
+            <label for='Weekly'>Weekly</label>
+          </div>
+        </div>
+
+        <div class='form-row'>
+          <label for='days' class="calc-label">Days Supply:</label>
+          <input id='days' name='days' type='text' class="form-right" value="90"/>
+        </div>
       </div>
 
       <h2>Insulins</h2>
 
-      <p id=buttons></p>
+      <p id=buttons class="button-box"></p>
 
       <h2>Calculation</h2>
 
       <p id="result" class="result"></p>
 
-      <p id="notes" class="notes"></p>
+      <p id="notes" class="result"></p>
 
 </div>
 
