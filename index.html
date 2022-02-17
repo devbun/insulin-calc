@@ -52,22 +52,27 @@
 
       <h2>Calculation</h2>
 
-      <p id="result" class="result"></p>
+      <div id="result" class="result">
+        <div id="result-number" class="result-number"></div>
+        <div id="result-rest" class="result-rest"></div>
 
-      <p id="notes" class="result"></p>
+      </div>
+
+      <p id="notes" class="notes"></p>
 
 </div>
 
     <script>
 
 class Insulin {
-        constructor(name, varname, quantity, unit, form, note) {
+        constructor(name, varname, quantity, unit, form, note, color) {
           this.name = name;
           this.varname = varname;
           this.quantity = quantity; //per unit
           this.unit = unit;
           this.form = form;
           this.note = note; //add additional notes like needle tips or pack sizes
+          this.color = color ? color : "#FEFAE4";
 
           this.addToDom()
         }
@@ -78,9 +83,11 @@ class Insulin {
           let interval = document.getElementById('Daily').checked ? 1 : (1/7) 
           let days = document.getElementById('days').value;
 
-          let result = document.getElementById('result');
+          let resultNum = document.getElementById('result-number');
+          let resultRest = document.getElementById('result-rest');
           let total = ((quantity * days * interval) / this.quantity)
-          result.textContent = Math.ceil(total) + " " + this.name + " " + this.form + "s"
+          resultNum.textContent = Math.ceil(total)
+          resultRest.textContent = this.name + " " + this.form + "s"
 
           let notes = document.getElementById('notes');
           if (this.note) {
@@ -97,20 +104,22 @@ class Insulin {
             btn.setAttribute('type', 'button');
             btn.setAttribute('class', 'btn');
             btn.setAttribute('onclick', this.varname + ".calculate()");
+            btn.style.backgroundColor = this.color;
             document.getElementById('buttons').appendChild(btn)
         }
 
       }
 
-      const humalog = new Insulin("Humalog Vial", "humalog", 350, "mg", "vial")
-      const humalogpen = new Insulin("Humalog Kwikpen", "humalogpen", 300, "mg", "vial", "pls test")
-      const trulicity = new Insulin("Trulicity 1.5/0.5", "trulicity", 1.5, "mg", "pen")
+      const humalog = new Insulin("Humalog Vial", "humalog", 350, "mg", "vial", "", "#E3FEC8")
+      const humalogpen = new Insulin("Humalog Kwikpen", "humalogpen", 300, "mg", "vial", "pls test", "#E3FEC8")
+      const trulicity = new Insulin("Trulicity 1.5/0.5", "trulicity", 1.5, "mg", "pen", 'Boxes of 4 - usually need 3 boxes (12 pens)', "#FAC1C1")
+      const trulicitysmall = new Insulin("Trulicity 0.75/0.5", "trulicitysmall", 0.75, "mg", "pen", 'Boxes of 4 - usually need 3 boxes (12 pens)', "#FAC1C1")
+      const toujeo = new Insulin("Toujeo Solostar", "toujeo", 450, "ml", "pen", "Not the MAX version", "#F6E9FD")
+      const toujeomax = new Insulin("Toujeo Max Solostar", "toujeomax", 900, "ml", "pen", "there is also non-Max version", "#F6E9FD")
+      const novolog = new Insulin("Novolog Flexpen", "novolog", 300, "ml", "pen", '', "#C4F1F1")
+      const novologfill = new Insulin("Novolog Penfill", "novologfill", 300, "ml", "pen", "pls test", "#C4F1F1")
+      const novologvial = new Insulin("Novolog 10ml Vial", "novologvial", 1000, "ml", "pen", "pls test", "#C4F1F1")
       const tresiba300 = new Insulin("Tresiba 300IU", "tresiba300", 300, "ml", "pen")
-      const toujeo = new Insulin("Toujeo Solostar", "toujeo", 450, "ml", "pen", "Not the MAX version")
-      const toujeomax = new Insulin("Toujeo Max Solostar", "toujeomax", 900, "ml", "pen")
-      const novolog = new Insulin("Novolog Flexpen", "novolog", 300, "ml", "pen")
-      const novologfill = new Insulin("Novolog Penfill", "novologfill", 300, "ml", "pen", "Note sure about this one")
-      const novologvial = new Insulin("Novolog 10ml Vial", "novologvial", 1000, "ml", "pen", "This one needs testing")
       const levemir = new Insulin("Levemir Flextouch", "levemir", 300, "ml", "pen")
       const lantus = new Insulin("Lantus Solostar", "lantus", 300, "ml", "pen")
 

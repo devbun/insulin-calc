@@ -15,7 +15,7 @@ body {
 
 .main {
     width: 700px;
-    height: 550px;
+    height: 500px;
     margin: auto;
     padding: 2rem;
     padding-top: 0em;
@@ -80,7 +80,8 @@ p {
 }
 
 .btn {
-    font-size: 1rem;
+    font-family: sans-serif;
+    font-size: 0.9rem;
     width: 9rem;
     padding: .25rem;
     margin-right: .25rem;
@@ -92,5 +93,13 @@ p {
 .result {
 text-align: center;
 font-size: 1.5rem;
-color: #ee6c4d;
+display: flex;
+flex-direction: row;
+justify-content: center;
 } 
+
+.result-number {
+    margin-right: .25em;
+    color: #ee6c4d;
+}
+
