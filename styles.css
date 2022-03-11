@@ -90,6 +90,9 @@ p {
     cursor: pointer;
 } 
 
+.btn:hover {
+    background-color: white !important;
+}
 
 .result {
 text-align: center;
