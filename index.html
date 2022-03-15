@@ -52,10 +52,11 @@
 
       <h2>Calculation</h2>
 
-      <div id="result" class="result">
-        <div id="result-number" class="result-number"></div>
-        <div id="result-rest" class="result-rest"></div>
+      <div id="result" class="result" >
+        <div id="result-number" class="result-number" class="tooltip">
 
+        </div>
+        <div id="result-rest" class="result-rest"></div>
       </div>
 
       <p id="notes" class="notes"></p>
@@ -87,7 +88,8 @@ class Insulin {
           let resultNum = document.getElementById('result-number');
           let resultRest = document.getElementById('result-rest');
           let total = ((quantity * days * interval) / this.quantity)
-          resultNum.textContent = Math.ceil(total)
+          // resultNum.textContent = Math.ceil(total)
+          resultNum.textContent = total
           resultRest.textContent = this.name + " " + this.form + "s"
 
           let notes = document.getElementById('notes');
@@ -96,6 +98,14 @@ class Insulin {
           } else {
             notes.textContent = ""
           }
+
+            // if (Math.ceil(total) !== total) {
+            //   const truetotal = document.createElement('span');
+            //   truetotal.setAttribute('id', 'truetotal'); 
+            //   truetotal.setAttribute('class', 'truetotal'); 
+            //   truetotal.textContent = "(" + total + ")"
+            //   document.getElementById('result-number').appendChild(truetotal)
+            // }
         } 
 
         addToDom = () => {
@@ -112,7 +122,7 @@ class Insulin {
       }
 
       const humalog = new Insulin("Humalog Vial", "humalog", 1000, "mg", "vial", "", "#E3FEC8")
-      const humalogpen = new Insulin("Humalog Kwikpen", "humalogpen", 300, "mg", "vial", "pls test", "#E3FEC8")
+      const humalogpen = new Insulin("Humalog Kwikpen", "humalogpen", 300, "mg", "vial", "There's also a high dose version", "#E3FEC8")
       const trulicity = new Insulin("Trulicity 1.5/0.5", "trulicity", 1.5, "mg", "pen", 'Boxes of 4 - usually need 3 boxes (12 pens)', "#FAC1C1")
       const trulicitysmall = new Insulin("Trulicity 0.75/0.5", "trulicitysmall", 0.75, "mg", "pen", 'Boxes of 4 - usually need 3 boxes (12 pens)', "#FAC1C1")
       const toujeo = new Insulin("Toujeo Solostar", "toujeo", 450, "ml", "pen", "Not the MAX version", "#F6E9FD")
