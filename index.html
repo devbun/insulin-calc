@@ -3,19 +3,27 @@
   <head>
     <link rel='stylesheet' href='styles.css'/>
     <meta charset="utf-8">
-    <title>Insulin Calculator</title>
+    <script src="scripts.js" defer></script>
+    <title>Canada Cloud Health Calculator</title>
   </head>
 
   <body>
-    <div class="main">
-      <h1>Insulin Calculator</h1>
-      <p>Calculate insulin quantity from dosing instructions.</p>
+    <div class="tabs" id="tabs">
+       <span class="tab quantity-calc" onclick="quantityCalcPage()" id="quantity-calc">Quantity Calc</span>
+       <span class="tab supply-calc" onclick="supplyCalcPage()" id="supply-calc">Supply Calc</span>
+
+       <span class="logo" id="logo">Cloud Health Calculator</span>
+    </div>
+
+    <div class="main" id="main">
+      <h1>Quantity Calculator</h1>
+      <p>Calculate medication quantity from dosing instructions.</p>
 
       <div class="form">
 
         <div class='form-row'>
           <label for='quantity' class="calc-label">Quantity:</label>
-          <input id='quantity' name='quantity' type='text' class="form-right" value=""/>
+          <input id='quantity' name='quantity' type='text' placeholder="ex. 20 (units per day)" class="form-right" value=""/>
         </div>
    
         <!-- <div class='form-row'>
@@ -24,8 +32,8 @@
             <input type="radio" name ="Measurement" id="Units" value="isUnits" checked="true">
             <label for='read'>Units</label>
 
-            <input type="radio" name ="Measurement" id="Mgs" value="isMgs">
-            <label for='read'>Mgs</label>
+            <input type="radio" name ="Measurement" id="Mls" value="isMls">
+            <label for='read'>Mls</label>
           </div>
         </div> -->
 
@@ -50,7 +58,7 @@
 
       <p id=buttons class="button-box"></p>
 
-      <h2>Calculation</h2>
+      <h2>Quantity</h2>
 
       <div id="result" class="result" >
         <div id="result-number" class="result-number" class="tooltip">
@@ -64,81 +72,66 @@
 
 </div>
 
-    <script>
+<div id="main2" class="main">
+  <h1>Supply Calculator</h1>
+  <p>Calculate days supply from insulin quantity</p>
 
-class Insulin {
-        constructor(name, varname, quantity, unit, form, note, color) {
-          this.name = name;
-          this.varname = varname;
-          this.quantity = quantity; //per unit
-          this.unit = unit;
-          this.form = form;
-          this.note = note; //add additional notes like needle tips or pack sizes
-          this.color = color ? color : "#FEFAE4";
+  <div class="form">
 
-          this.addToDom()
-        }
+    <div class='form-row'>
+      <label for='quantitySupply' class="calc-label">Quantity:</label>
+      <input id='quantitySupply' name='quantitySupply' type='text' placeholder="ex. 12 (pens)" class="form-right" value=""/>
+    </div>
 
-        //add button to dom on creation?
-        calculate = () => {
-          let quantity = document.getElementById('quantity').value;
-          let interval = document.getElementById('Daily').checked ? 1 : (1/7) 
-          let days = document.getElementById('days').value;
+    <div class='form-row'>
+      <span class="calc-label">Interval: </span>
+      <div class="form-right">
+        <input type="radio" name ="intervalSupply" id="DailySupply" value="isdaily" checked="true">
+        <label for='Daily'>Daily</label>
 
-          let resultNum = document.getElementById('result-number');
-          let resultRest = document.getElementById('result-rest');
-          let total = ((quantity * days * interval) / this.quantity)
-          // resultNum.textContent = Math.ceil(total)
-          resultNum.textContent = total
-          resultRest.textContent = this.name + " " + this.form + "s"
+        <input type="radio" name ="intervalSupply" id="WeeklySupply" value="isweekly">
+        <label for='Weekly'>Weekly</label>
+      </div>
+    </div>
 
-          let notes = document.getElementById('notes');
-          if (this.note) {
-            notes.textContent = "Note: " + this.note;
-          } else {
-            notes.textContent = ""
-          }
+    <div class='form-row'>
+      <label for='dosageSupply' class="calc-label">Dosage:</label>
+      <input id='dosageSupply' name='dosageSupply' type='text' placeholder="ex. 20 (units)" class="form-right" value=""/>
+    </div>
 
-            // if (Math.ceil(total) !== total) {
-            //   const truetotal = document.createElement('span');
-            //   truetotal.setAttribute('id', 'truetotal'); 
-            //   truetotal.setAttribute('class', 'truetotal'); 
-            //   truetotal.textContent = "(" + total + ")"
-            //   document.getElementById('result-number').appendChild(truetotal)
-            // }
-        } 
+    <!-- <div class='form-row'>
+      <span class="calc-label">Measurement: </span>
+      <div class="form-right">
+        <input type="radio" name ="MeasurementSupply" id="UnitsSupply" value="isUnits" checked="true">
+        <label for='read'>Units</label>
 
-        addToDom = () => {
-          const btn = document.createElement('input');
-            btn.setAttribute('value', this.name);
-            btn.setAttribute('id', this.name);
-            btn.setAttribute('type', 'button');
-            btn.setAttribute('class', 'btn');
-            btn.setAttribute('onclick', this.varname + ".calculate()");
-            btn.style.backgroundColor = this.color;
-            document.getElementById('buttons').appendChild(btn)
-        }
+        <input type="radio" name ="MeasurementSupply" id="MlsSupply" value="isMls">
+        <label for='read'>Mls</label>
+      </div>
+    </div> -->
 
-      }
+  </div>
 
-      const humalog = new Insulin("Humalog Vial", "humalog", 1000, "mg", "vial", "", "#E3FEC8")
-      const humalogpen = new Insulin("Humalog Kwikpen", "humalogpen", 300, "mg", "vial", "There's also a high dose version", "#E3FEC8")
-      const trulicity = new Insulin("Trulicity 1.5/0.5", "trulicity", 1.5, "mg", "pen", 'Boxes of 4 - usually need 3 boxes (12 pens)', "#FAC1C1")
-      const trulicitysmall = new Insulin("Trulicity 0.75/0.5", "trulicitysmall", 0.75, "mg", "pen", 'Boxes of 4 - usually need 3 boxes (12 pens)', "#FAC1C1")
-      const toujeo = new Insulin("Toujeo Solostar", "toujeo", 450, "ml", "pen", "Not the MAX version", "#F6E9FD")
-      const toujeomax = new Insulin("Toujeo Max Solostar", "toujeomax", 900, "ml", "pen", "there is also non-Max version", "#F6E9FD")
-      const novolog = new Insulin("Novolog Flexpen", "novolog", 300, "ml", "pen", '', "#C4F1F1")
-      const novologfill = new Insulin("Novolog Penfill", "novologfill", 300, "ml", "pen", "pls test", "#C4F1F1")
-      const novologvial = new Insulin("Novolog 10ml Vial", "novologvial", 1000, "ml", "pen", "pls test", "#C4F1F1")
-      const tresiba300 = new Insulin("Tresiba 300IU", "tresiba300", 300, "ml", "pen", "There is also 300IU version", "#f9f9f9")
-      const tresiba600 = new Insulin("Tresiba 600IU", "tresiba600", 600, "ml", "pen", "There is also 300IU version", "#f9f9f9")
-      const levemir = new Insulin("Levemir Flextouch", "levemir", 300, "ml", "pen")
-      const lantus = new Insulin("Lantus Solostar", "lantus", 300, "ml", "pen")
-      const basaglar = new Insulin("Basaglar Kwikpen", "basaglar", 300, "ml", "pen")
-      const victoza = new Insulin("Victoza", "victoza", 18, "ml", "pen")
-      const Humira = new Insulin("Humira", "Humira", 40, "ml", "pen", "suuuuper untested")
+  <h2>Insulins</h2>
 
-    </script>
+  <p id="buttonsSupply" class="button-box"></p>
+
+  <h2>Supply</h2>
+
+  <div id="resulSupplyt" class="result" >
+    <div id="result-number-Supply" class="result-number" >
+
+    </div>
+    <div id="result-rest-Supply" class="result-rest"></div>
+  </div>
+
+  <p id="notes-supply" class="notes"></p>
+</div>
+
+<footer class="disclaimer">
+  <!-- <a href="https://devbun.github.io/insulin-calc/">UNTESTED VERSON!!! Please use main branch HERE</a> -->
+  I takes 0 responsibility for what you do with this page! 
+</footer>
 
   </body>
 </html>
