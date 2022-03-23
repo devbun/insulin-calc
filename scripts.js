@@ -48,6 +48,7 @@ class Insulin {
 
         let total = (this.concentration * this.volume * quantity) / (dosageSupply * interval)
 
+        navigator.clipboard.writeText(total);
 
         resultNum.textContent = (total == Math.ceil(total)) ? total : total.toFixed(2)
         resultRest.textContent = "days supply of " + this.name + " " + this.form + "s"
