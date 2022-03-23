@@ -1,5 +1,5 @@
 :root {
-    --colour-main: #f3f3f3;
+    --colour-main: #e8f0f3;
     --colour-second: #025169;
     --colour-buttons: #238cbf;
     --colour-accent: #f07167;
@@ -204,6 +204,8 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 0px 2px 3px inset rgba(0, 0, 0, 0.781);
+    
 }
 
 .test {

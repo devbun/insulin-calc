@@ -27,6 +27,8 @@ class Insulin {
       resultNum.textContent = (total == Math.ceil(total)) ? total : total.toFixed(2)
       resultRest.textContent = this.name + " " + this.form + "s"
 
+      navigator.clipboard.writeText(total);
+
       let notes = document.getElementById('notes');
       if (this.note) {
         notes.textContent = "Note: " + this.note;
@@ -90,10 +92,12 @@ class Insulin {
   const humalog = new Insulin("Humalog Vial", "humalog", 100, 10, "mg", "vial", "", "#E3FEC8")
   const humalogpen = new Insulin("Humalog Kwikpen", "humalogpen", 100, 3, "mg", "vial", "There's also a high dose version", "#E3FEC8")
   const humaloghighpen = new Insulin("Humalog High C", "humaloghighpen", 200, 3, "mg", "vial", "There's also a low dose version", "#E3FEC8")
+  const victoza = new Insulin("Victoza", "victoza", 6, 3, "ml", "pen")
   const trulicity = new Insulin("Trulicity 1.5/0.5", "trulicity", 1.5, 1, "mg", "pen", 'Boxes of 4 - usually need 3 boxes (12 pens)', "#FAC1C1")
   const trulicitysmall = new Insulin("Trulicity 0.75/0.5", "trulicitysmall", 0.75, 1, "mg", "pen", 'Boxes of 4 - usually need 3 boxes (12 pens)', "#FAC1C1")
   const toujeo = new Insulin("Toujeo Solostar", "toujeo", 300, 1.5, "ml", "pen", "Not the MAX version", "#F6E9FD")
   const toujeomax = new Insulin("Toujeo Max Solostar", "toujeomax", 300, 3, "ml", "pen", "there is also non-Max version", "#F6E9FD")
+  const basaglar = new Insulin("Basaglar Kwikpen", "basaglar", 100, 3, "ml", "pen")
   const novolog = new Insulin("Novolog Flexpen", "novolog", 100, 3, "ml", "pen", '', "#C4F1F1")
   const novologfill = new Insulin("Novolog Penfill", "novologfill", 100, 3, "ml", "pen", "", "#C4F1F1")
   const novologvial = new Insulin("Novolog 10ml Vial", "novologvial", 100, 10, "ml", "pen", "", "#C4F1F1")
@@ -101,8 +105,6 @@ class Insulin {
   const tresiba600 = new Insulin("Tresiba 600IU", "tresiba600", 200, 3, "ml", "pen", "There is also 300IU version", "#f9f9f9")
   const levemir = new Insulin("Levemir Flextouch", "levemir", 100, 3, "ml", "pen")
   const lantus = new Insulin("Lantus Solostar", "lantus", 100, 3, "ml", "pen")
-  const basaglar = new Insulin("Basaglar Kwikpen", "basaglar", 100, 3, "ml", "pen")
-  const victoza = new Insulin("Victoza", "victoza", 6, 3, "ml", "pen")
 
   //Don't pout these; too expensive/complicated
   // const Humira = new Insulin("Humira", "Humira", 40, "ml", "pen", "suuuuper untested")
@@ -134,11 +136,11 @@ class Insulin {
     document.getElementById("quantity-calc").classList.remove('.btn-selected'); //doesnt work
     document.getElementById("supply-calc").classList.add('.btn-selected');
 
-    document.getElementById("main").style.visibility = 'hidden';
-    document.getElementById("main").style.height = '0px';
-
     document.getElementById("main2").style.visibility = 'visible';
     document.getElementById("main2").style.height = '500px';
+
+    document.getElementById("main").style.visibility = 'hidden';
+    document.getElementById("main").style.height = '0px';
 
     document.getElementById("supply-calc").classList.add("tab-selected");
     document.getElementById("quantity-calc").classList.remove("tab-selected");
