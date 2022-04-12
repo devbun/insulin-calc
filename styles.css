@@ -10,6 +10,7 @@
     color:var(--colour-text);
     box-sizing: border-box;
     font-family: serif;
+
   }
 
 body {
@@ -114,12 +115,20 @@ body {
 .form-row {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: .25rem;
 }
 
 .form-right {
     width: 150px;
     border-radius: 1px;
+    height: 1.75rem;
+}
+
+.form-radio {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 h1 {

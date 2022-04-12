@@ -24,7 +24,7 @@ class Insulin {
 
       let total = ((quantity * days * interval) / (this.concentration * this.volume))
 
-      resultNum.textContent = (total == Math.ceil(total)) ? total : total.toFixed(2)
+      resultNum.textContent = (total == Math.ceil(total)) ? total : total.toFixed(1)
       resultRest.textContent = this.name + " " + this.form + "s"
 
       navigator.clipboard.writeText(total);
@@ -50,7 +50,7 @@ class Insulin {
 
         navigator.clipboard.writeText(total);
 
-        resultNum.textContent = (total == Math.ceil(total)) ? total : total.toFixed(2)
+        resultNum.textContent = (total == Math.ceil(total)) ? total : total.toFixed(1)
         resultRest.textContent = "days supply of " + this.name + " " + this.form + "s"
   
         let notes = document.getElementById('notes-supply');
