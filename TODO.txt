@@ -1,0 +1,6 @@
+Add reverse calculator on seperate tab
+
+Use local storage to remember which tab you had open last
+
+Add ml/unit verifier
+	- convert class to have units/ml and total mls
